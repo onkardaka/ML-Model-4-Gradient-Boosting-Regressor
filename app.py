@@ -3,10 +3,13 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# 1. Cargamos el modelo de regresión optimizado
+import skops.io as sio
+
+# Cargamos el modelo usando skops de forma segura
 @st.cache_resource
 def load_model():
-    return joblib.load('modelo_precio_coches_regresion.joblib')
+    # Permitimos que cargue la clase de GradientBoosting sin bloqueos de seguridad
+    return sio.load('modelo_precio_coches_regresion.skops', trusted=True)
 
 modelo = load_model()
 
